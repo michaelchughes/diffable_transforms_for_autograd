@@ -3,18 +3,44 @@ Differentiable transform for 2D array with positive rows that sum to one
 
 Use Stick-Breaking transform.
 
-Key Functions
--------------
+Function API
+------------
 * to_common_arr
     Transforms array of real values to pos. values & rows sum to one
-    Input shape: A x B
-    Output shape: A x B-1
+    Input shape: K x V
+    Output shape: K x V-1
     Differentiable via autograd.
 * to_diffable_arr
     Transforms array of pos. values & rows sum to one to real values
-    Input shape: A x B-1
-    Output shape: A x B
+    Input shape: K x V-1
+    Output shape: K x V
     Differentiable via autograd.
+
+Examples
+--------
+
+## Part 1) Simple test
+#
+
+>>> np.set_printoptions(precision=4, suppress=1)
+
+>>> topics_KV = 10 * np.eye(3) + np.ones((3,3))
+>>> topics_KV /= topics_KV.sum(axis=1)[:,np.newaxis]
+>>> topics_KV
+array([[0.8462, 0.0769, 0.0769],
+       [0.0769, 0.8462, 0.0769],
+       [0.0769, 0.0769, 0.8462]])
+
+>>> to_diffable_arr(topics_KV)
+array([[ 2.3979, -0.    ],
+       [-0.    ,  2.3979],
+       [-2.3979, -2.3979]])
+
+>>> to_common_arr(to_diffable_arr(topics_KV))
+array([[0.8462, 0.0769, 0.0769],
+       [0.0769, 0.8462, 0.0769],
+       [0.0769, 0.0769, 0.8462]])
+
 
 Reference
 ---------
@@ -22,16 +48,13 @@ Stick-breaking transform explained in Sec. 35.6 "Unit Simplex"
 of the Stan Reference v 2.17.0 document:
 https://github.com/stan-dev/stan/releases/download/v2.17.0/stan-reference-2.17.0.pdf
 
-
-Examples
---------
 '''
 import autograd
 import autograd.numpy as np
-from util_differentiable_transform__unit_interval import (
+from tfm__unit_interval import (
     logistic_sigmoid,
     inv_logistic_sigmoid)
-from util_differentiable_transform__2D_rows_sum_to_one__log import (
+from tfm__2D_rows_sum_to_one__log import (
     MIN_EPS,
     to_safe_common_arr)
 

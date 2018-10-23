@@ -6,17 +6,17 @@ Use log transform with dimensionality reduction for identifiability.
 Keeps values off rails by enforcing minimum value MIN_EPS.
 
 
-Key Functions
--------------
+Function API
+------------
 * to_common_arr
     Transforms array of real values to pos. values & rows sum to one
-    Input shape: A x B
-    Output shape: A x B-1
+    Input shape: K x V
+    Output shape: K x V-1
     Differentiable via autograd.
 * to_diffable_arr
     Transforms array of pos. values & rows sum to one to real values
-    Input shape: A x B-1
-    Output shape: A x B
+    Input shape: K x V-1
+    Output shape: K x V
     Differentiable via autograd.
 
 Examples
@@ -87,7 +87,6 @@ topics_KV : 2D array, K x V
     has positive values and rows that sum to one.
 logtopics_KVm1 : 2D array, K x V-1
     has real values
-
 
 Need to_common_arr to have no edge cases ...
     always deliver something that sums to 1.0

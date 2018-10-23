@@ -1,10 +1,9 @@
-import util_differentiable_transform__2D_rows_sum_to_one \
-    as tfm__2D_rows_sum_to_one
-import util_differentiable_transform__unit_interval \
-    as tfm__unit_interval
-import util_differentiable_transform__log_unit_interval \
-    as tfm__log_unit_interval
+import tfm__unit_interval
+import tfm__2D_rows_sum_to_one__log
+import tfm__2D_rows_sum_to_one__stickbreak
 
 # Make a few functions easily available
 logistic_sigmoid = tfm__unit_interval.logistic_sigmoid
-log_logistic_sigmoid = tfm__log_unit_interval.log_logistic_sigmoid
+inv_logistic_sigmoid = tfm__unit_interval.inv_logistic_sigmoid
+
+from log_logistic_sigmoid import log_logistic_sigmoid

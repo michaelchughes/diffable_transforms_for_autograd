@@ -1,8 +1,21 @@
 '''
-Define invertible transform from unit interval to real line.
+Define differentiable log_logistic_sigmoid function
+
+Useful for computing logpdfs of Bernoulli random variables.
+
 
 Examples
 --------
+
+## Part 1) Basic tests
+# 
+>>> log_logistic_sigmoid(0.0)
+-0.6931471805599453
+
+## Part 2) Verify we've vectorized correctly
+#
+#
+
 >>> from autograd import elementwise_grad
 >>> g_auto = elementwise_grad(
 ...     _log_logistic_sigmoid_not_vectorized)
